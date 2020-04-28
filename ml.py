@@ -1,6 +1,8 @@
 
 from matplotlib import image
 from matplotlib import pyplot
+from keras.models import Sequential
+from keras.layers import Dense  
 
 import numpy as np
 N = 16
@@ -77,7 +79,12 @@ train_y=np.array(train_y_array)
 
     
 
-convToImageAndShow(train_y[2])
+mode = Sequential([
+    Dense(N*N, input_shape=(N*N,3,3))
+])
+
+print(model.predict([train_x[1]]))
+
 
 
 
