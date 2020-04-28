@@ -79,11 +79,17 @@ train_y=np.array(train_y_array)
 
     
 
-mode = Sequential([
-    Dense(N*N, input_shape=(N*N,3,3))
+model =Sequential([
+    Dense(N*N,input_shape=(N*N,3,3),activation="relu"),
+    Dense(3,activation="relu")
 ])
 
-print(model.predict([train_x[1]]))
+model.compile(loss="mean_absolute_error",optimizer="sgd")
+
+model.fit(train_x,train_y,epochs=100)
+
+convToImageAndShow(model.predict([train_x])[0])
+convToImageAndShow(train_y[0])
 
 
 
