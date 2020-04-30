@@ -1,4 +1,3 @@
-from numpy import loadtxt
 from array import array
 import numpy as np
 from matplotlib import pyplot
@@ -6,13 +5,11 @@ from keras.models import Sequential
 from keras.layers import Dense  
 import math
 import matplotlib.pyplot as plt
-from keras.models import load_model
 
-model = load_model('model.h5')
 
 N=100
 
-No_of_files = 3000
+No_of_files = 2000
 name="data(100)"
 
 D=[]
@@ -125,14 +122,24 @@ Data_in.pop()
 Data_in=np.array(Data_in)
 Data_out=np.array(Data_out)
 
-index =200
+    
+model =Sequential([
+    Dense(N,input_shape=(6,N*N),activation="relu"),
+	Dense(N*N,activation="relu"),
 
-single_input = Data_in[index]
-single_input =single_input.reshape( 1, 6,10000)
+])
+model.compile(loss="mean_squared_error",optimizer="sgd")
+model.fit(Data_in,Data_out,epochs=100)
 
-array_to_image(model.predict(  single_input )[0][0]) #prediction
+model.save("model.h5")
+print("Saved model to disk")
 
-array_to_image( Data_out[index][0] ) #real
+
+
+
+
+
+
 
 
 
